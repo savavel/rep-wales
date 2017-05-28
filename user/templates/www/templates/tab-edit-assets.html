@@ -1,0 +1,37 @@
+<ion-view view-title="Edit Asset">
+  <ion-content>
+<div class="list list-inset">
+          <label class="item item-input">
+              <input type="text" placeholder="Name" ng-model="data.name">
+          </label>
+          <label class="item item-input">
+              <input type="text" placeholder="Name Short" ng-model="data.nameShort">
+          </label>
+          <label class="item item-input">
+              <input type="text" placeholder="Image" ng-model="data.iconUrl">
+          </label>
+          <label class="item item-input">
+              <input type="text" placeholder="Amount" ng-model="data.amount">
+          </label>
+          <label class="item item-input">
+              <input type="text" placeholder="Price" ng-model="data.price">
+          </label>
+      </div>
+      <button class="button button-block button-calm" ng-click="editAsset()">Edit Asset</button>
+        <div class="col-lg-1 text-center">
+         <span class="glyphicon glyphicon-trash" data="XgvRSKSHCW6jRQ8reFsYVHTL9nU4owN3GY" ng-click="testTransact($event)">Create new item!</span>
+        </div>
+    <!--<ion-list>
+      <ion-item class="item-remove-animate item-avatar item-icon-right" ng-repeat="chat in chats" type="item-text-wrap" href="#/tab/chats/{{chat.id}}">
+        <img ng-src="{{chat.face}}">
+        <h2>{{chat.name}}</h2>
+        <p>{{chat.lastText}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+
+        <ion-option-button class="button-assertive" ng-click="remove(chat)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>-->
+  </ion-content>
+</ion-view>

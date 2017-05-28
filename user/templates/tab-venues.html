@@ -1,0 +1,21 @@
+<ion-view view-title="Venues">
+  <ion-content class="padding">
+    <h2>Venues</h2>
+ <!-- Asset Items -->
+          <ion-list class="list">
+			<ion-item ng-click="openModal(venue)" class="item item-thumbnail-left" ng-repeat="venue in dataModel.clients" ng-show="dataModel.state == 'loaded'"> 
+				<h3>{{venue[0]}}</h3>
+			</ion-tem>
+			<!--<ion-item ng-click="openModal(asset)" class="item item-thumbnail-left" ng-repeat="asset in dataModel.clientAssets" ng-show="dataModel.state == 'loaded'" ng-class="{'deleted': asset.deleted == 'true'}"> 
+				<img src="{{asset.iconUrl}}" />
+				<h3>{{asset.name}}</h3>
+				<h3>£{{asset.price}}</h3>
+				<ion-option-button class = "button-positive">Button 1</ion-option-button>
+			 </ion-tem>
+		-->
+	  </ion-list ng-repeat-end>
+          <div class="list-group-item list-message" ng-show="dataModel.clients.length == 0" ng-repeat-end>
+            <i class="fa fa-info-circle fa-lg"></i> There are no venues to show
+          </div>
+  </ion-content>
+</ion-view>

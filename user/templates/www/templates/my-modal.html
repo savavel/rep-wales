@@ -1,0 +1,34 @@
+<ion-modal-view>
+   <ion-header-bar>
+      <h1 class = "title">Edit Asset</h1>
+      <button class = "button icon icon-left ion-ios-close-outline"
+         ng-click = "closeModal()"></button>
+   </ion-header-bar>
+   <ion-content>
+	<img src="{{info.assetImage}}"></img>
+	<label class="item item-input">
+  <span class="input-label">Asset Image Path</span>
+  <input type="text" ng-model="info.assetImage" >
+</label>
+	<label class="item item-input">
+  <span class="input-label">Asset Name</span>
+  <input type="text" ng-model="info.assetName" >
+</label>
+	<label class="item item-input">
+  <span class="input-label">Asset Name Short</span>
+  <input type="text" ng-model="info.assetNameShort">
+</label>
+<label class="item item-input">
+  <span class="input-label">Asset Price £</span>
+  <input type="text" ng-model="info.assetPrice">
+</label>
+<label class="item item-input">
+  <span class="input-label">Asset Balance</span>
+  <input type="text" ng-model="info.assetBalance">
+</label>
+<button class = "button"
+         ng-click = "editAsset()">Edit</button>
+<button class = "button"
+         ng-click = "deleteAsset()">Delete</button>
+   </ion-content>
+</ion-modal-view>

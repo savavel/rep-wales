@@ -1,0 +1,23 @@
+<ion-view view-title="Dashboard">
+<ion-nav-buttons side="left">
+    <button class="button" ng-click="logout()">Logout</button>
+  </ion-nav-buttons>
+  <ion-content class="padding">
+    <h2>Welcome to REP</h2>
+	<h3> Your Wallet: </h3>
+<img src="{{ 'https://chart.googleapis.com/chart?cht=qr&chs=116x116&chld=M|0&chl=' + rawAddress }}" />
+ <!-- Asset Items -->
+          <ion-list class="list">
+		<ion-item ng-click="openModal(asset)" class="item item-thumbnail-left" ng-repeat="asset in dataModel.assets" ng-show="dataModel.state == 'loaded'" ng-class="{'deleted': asset.deleted == 'true'}"> 
+			<img src="{{asset.iconUrl}}" />
+			<h3>{{asset.name}}</h3>
+			<h3>£{{asset.price}}</h3>
+			<h3>Quantity: {{asset.balance}}</h3>
+			<ion-option-button class = "button-positive">Button 1</ion-option-button>
+		<!--{{asset.asset}} {{asset.icon_url}} {{asset.balance}} {{asset.name}} {{asset.iconUrl}} {{asset.price}}--> </ion-tem>
+          <div class="list-group-item list-message" ng-show="dataModel.assets.length ==0" ng-repeat-end>
+            <i class="fa fa-info-circle fa-lg"></i> You don't have any asset
+          </div>
+	  </ion-list>
+  </ion-content>
+</ion-view>

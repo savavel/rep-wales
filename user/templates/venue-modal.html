@@ -1,0 +1,18 @@
+<ion-modal-view>
+   <ion-header-bar>
+      <h1 class = "title">{{info.venueName}}</h1>
+      <button class = "button icon icon-left ion-ios-close-outline"
+         ng-click = "closeModal()"></button>
+   </ion-header-bar>
+   <ion-content>
+	<ion-list>
+	<ion-item class="item item-thumbnail-left" ng-repeat="asset in dataModel.clientAssets" ng-show="dataModel.state == 'loaded'" ng-class="{'deleted': asset.deleted == 'true'}"> 
+                                <img src="{{asset.iconUrl}}" />
+                                <h3>{{asset.name}}</h3>
+                                <h3>£{{asset.price}}</h3>
+				<button class = "button" ng-click = "buyAsset(info.venueMnemonic, asset)" ng-show="(asset.balance - 0) > 0">Buy</button>
+				<h3 ng-show="(asset.balance - 0) == 0" color="red"> Out of stock </h3>
+                        <!--{{asset.asset}} {{asset.icon_url}} {{asset.balance}} {{asset.name}} {{asset.iconUrl}} {{asset.price}}--> </ion-tem>
+	</ion-list>
+   </ion-content>
+</ion-modal-view>
