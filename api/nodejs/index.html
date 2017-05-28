@@ -1,0 +1,162 @@
+<html>
+  <body>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bitcore-lib.js"></script>
+	<script src="bitcore-mnemonic.js"></script>
+	<script src="openchain.js"></script>
+	<style>
+		.buttonTest{
+			width: 100px;
+			height: 30px;
+			border: 2px solid black;
+		}
+	</style>
+    </head>
+
+    <h2>Openchain account info</h2>
+	<div class="buttonTest">Load</div>
+    <div id="status"></div>
+    <script type="text/javascript">
+
+       $(document).ready(function(){
+
+            //If account is successfully created
+            function displayAccountInfo(responseObject){
+		$('#status').text(JSON.stringify(responseObject));
+            }
+	    var openchain = require("openchain");
+	    var bitcore = require("bitcore-lib");
+	    var Mnemonic = require("bitcore-mnemonic");
+
+	    var cred = "home poverty easily vocal devote broken clever lion inner mass shell lava";
+	    var code = new Mnemonic(cred);
+	    var derivedKey = code.toHDPrivateKey(null, "livenet");
+	    var hdPrivateKey = new bitcore.HDPrivateKey(derivedKey.xprivkey);
+
+            console.log(bitcore.Networks.get("openchain"))
+	    console.log(hdPrivateKey.network);
+	    console.log(hdPrivateKey);
+
+            var oPrivateKey = hdPrivateKey.derive(44, true).derive(64, true).derive(0, true).derive(0).derive(0);
+	var address = "/p2pkh/" + oPrivateKey.privateKey.toAddress().toString() + "/";
+	// Calculate the accounts corresponding to the private key
+	var dataPath = "/asset/p2pkh/" + address + "/metadata/";
+	var recordName = "datarecord";
+	var storedData = "This is the data to store in the chain";
+
+	console.log("Account path: " + dataPath);
+	console.log("Record name: " + recordName);
+
+	// Create an Openchain client and signer
+	/*var client = new openchain.ApiClient("http://localhost:8080/");
+	var signer = new openchain.MutationSigner(oPrivateKey);
+
+	// Initialize the client
+	client.initialize()
+	.then(function () {
+	    // Retrieve the record being modified
+	    return client.getDataRecord(dataPath, recordName)
+	})
+	.then(function (dataRecord) {
+	    // Encode the data into a ByteBuffer
+	    var newValue = openchain.encoding.encodeString(storedData);
+
+	    // Create a new transaction builder
+	    return new openchain.TransactionBuilder(client)
+		// Add the key to the transaction builder
+		.addSigningKey(signer)
+		// Modify the record
+		.addRecord(dataRecord.key, newValue, dataRecord.version)
+		// Submit the transaction
+		.submit();
+	})
+	.then(function (result) { console.log(result); });
+
+
+
+var seed = "0123456789abcdef0123456789abcdef";
+
+// Load a private key from a seed
+var privateKey = bitcore.HDPrivateKey.fromSeed(seed, "openchain");
+var address = privateKey.publicKey.toAddress();
+
+// Calculate the accounts corresponding to the private key
+var dataPath = "/asset/p2pkh/" + address + "/metadata/";
+var recordName = "datarecord";
+var storedData = "This is the data to store in the chain";
+
+console.log("Account path: " + dataPath);
+console.log("Record name: " + recordName);
+
+// Create an Openchain client and signer
+var client = new openchain.ApiClient("http://localhost:8080/");
+var signer = new openchain.MutationSigner(privateKey);
+
+// Initialize the client
+client.initialize()
+.then(function () {
+    // Retrieve the record being modified
+    return client.getDataRecord(dataPath, recordName)
+})
+.then(function (dataRecord) {
+    // Encode the data into a ByteBuffer
+    var newValue = openchain.encoding.encodeString(storedData);
+
+    // Create a new transaction builder
+    return new openchain.TransactionBuilder(client)
+        // Add the key to the transaction builder
+        .addSigningKey(signer)
+        // Modify the record
+        .addRecord(dataRecord.key, newValue, dataRecord.version)
+        // Submit the transaction
+        .submit();
+})
+.then(function (result) { console.log(result); });
+*/
+            // If an error message occurs during request
+            function displayError(responseObject){
+                var responseJson = responseObject.responseJSON;
+                var statusMessage = '<p>A problem has occurred,' 
+                                + 'please contact your administrator</p>';
+                $('#status').append(statusMessage);
+                $('<p>',{
+                    text : responseJson[0].errorCode+": "
+                        + responseJson[0].message
+                }).appendTo($('#status'));
+            }
+
+
+            // Send POST request to CGI script
+            // to retrieve the records.
+            function sendRequest() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://0.0.0.0:8080/query/account?account=%2Fp2pkh%2FXpYWv2m7qKBtZNDDCxVL5o52aKbFiABM29%2F',
+                    //add the authorization header including the access_token
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    success: function(response){
+                        displayAccountInfo(response);
+                    },
+                    error: function(response){
+                        displayError(response);
+                    }
+                });
+            }
+
+            // Send initial request
+		$('.buttonTest').click(function(){
+            		sendRequest();
+		})
+
+            /*// Set a timer to refresh the content
+            setInterval(function() {
+                sendRequest();
+                $('#newtable').html('');
+            }, 1000 * 60 * 0.5);*/
+        })
+        </script>
+    </body>
+</html>
